@@ -7,11 +7,17 @@ const Trip = require('../models/trips')
 
 
 router.post('/', (req, res) => {
-    console.log("req.body.date", req.body.date)
+    const {departure, arrival, date} = req.body
+    const dateObj = new Date(date)
+    moment(dateObj).format('YYYY/MM/DD')
+    let dateObjPlus = new Date(date);
+    moment(dateObjPlus).format('YYYY-MM-DD')
+    dateObjPlus.setDate(dateObjPlus.getDate() + 1)
+
     Trip.find({
-        departure: req.body.departure,
-        arrival: req.body.arrival,
-        date: req.body.date
+        departure,
+        arrival,
+        date: {$gte : dateObj, $lt: dateObjPlus}
     }).then(data => {
         if (data.length > 0) {
             res.json({result: true, newTrip: data})
@@ -23,3 +29,10 @@ router.post('/', (req, res) => {
 
 
 module.exports = router;
+
+
+
+
+
+
+
