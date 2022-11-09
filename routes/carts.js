@@ -1,9 +1,12 @@
 var express = require('express');
 var router = express.Router();
 const Cart = require('../models/cart')
+const Trip = require('../models/trips')
 
-router.post('/', (req, res) => {
-    const {departure, arrival, date ,price} = req.body
+router.post('/:_id', (req, res) => {
+    
+
+    const {departure, arrival, date ,price} = req.params
     const newCart = new Cart({
         departure,
         arrival,
