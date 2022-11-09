@@ -14,7 +14,7 @@ router.post('/', (req, res) => {
 
     Trip.find({
         departure,
-        arrival,
+        arrival, 
         date: {$gte : dateObj, $lt: dateObjPlus}
     }).then(data => {
         if (data.length > 0) {
